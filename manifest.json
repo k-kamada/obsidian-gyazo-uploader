@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "gyazo-obsidian-uploader",
+	"name": "Gyazo Image Uploader",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Upload image to Gyazo using public API",
+	"author": "k-kamada",
+	"authorUrl": "",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
