@@ -1,5 +1,9 @@
 import { Editor, getAllTags, Notice, Plugin, requestUrl } from "obsidian";
-import { DEFAULT_SETTINGS, MySettings, SampleSettingTab } from "./settings";
+import {
+	DEFAULT_SETTINGS,
+	MySettings,
+	GyazoUploaderSettingTab,
+} from "./settings";
 
 interface UploadResponse {
 	status: number; // HTTP Status Code
@@ -190,7 +194,7 @@ export default class GyazoObsidianUploader extends Plugin {
 		};
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new GyazoUploaderSettingTab(this.app, this));
 	}
 
 	onunload() {}

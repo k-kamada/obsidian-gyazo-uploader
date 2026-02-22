@@ -13,7 +13,7 @@ export const DEFAULT_SETTINGS: MySettings = {
 	imageDisplayWidth: "",
 };
 
-export class SampleSettingTab extends PluginSettingTab {
+export class GyazoUploaderSettingTab extends PluginSettingTab {
 	plugin: GyazoObsidianUploader;
 
 	constructor(app: App, plugin: GyazoObsidianUploader) {
