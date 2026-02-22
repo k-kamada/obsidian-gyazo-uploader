@@ -60,6 +60,9 @@ export default class GyazoObsidianUploader extends Plugin {
 					const files = event.dataTransfer?.files;
 					if (!files || files.length === 0) return;
 					if (files[0] && files[0].type.startsWith("image/")) {
+						new Notice(
+							`[Gyazo-Uploader] Uploading ${files[0].name}`,
+						);
 						// ドラッグ＆ドロップした位置にプレイスホルダーを挿入
 						const dropPos = editor.getCursor();
 						const placeholderText = `[!INFO] Uploading image to Gyazo...(timestamp: ${Date.now()})`;
@@ -141,7 +144,7 @@ export default class GyazoObsidianUploader extends Plugin {
 
 							const resultText = `![ocr:"${ocrText}"${this.settings.imageDisplayWidth ? `|${this.settings.imageDisplayWidth}` : ""}](${url})`;
 
-							const result = replacePlaceholder(
+							replacePlaceholder(
 								editor,
 								placeholderText,
 								resultText,
