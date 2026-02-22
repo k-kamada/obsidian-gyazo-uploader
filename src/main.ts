@@ -61,7 +61,7 @@ export default class GyazoObsidianUploader extends Plugin {
 					if (!files || files.length === 0) return;
 					if (files[0] && files[0].type.startsWith("image/")) {
 						new Notice(
-							`[Gyazo-Uploader] Uploading ${files[0].name}`,
+							`Gyazo uploader: uploading ${files[0].name}`,
 						);
 						// ドラッグ＆ドロップした位置にプレイスホルダーを挿入
 						const dropPos = editor.getCursor();
@@ -118,9 +118,7 @@ export default class GyazoObsidianUploader extends Plugin {
 							const imageId: string =
 								uploadResponse.json.image_id;
 
-							new Notice(
-								"[Gyazo-Uploader] Upload finished. Waiting for OCR...",
-							);
+							new Notice("Gyazo uploader: waiting for ocr...");
 							// OCRの処理を待つため10秒ウェイト
 							await new Promise((resolve) =>
 								setTimeout(resolve, 10000),
@@ -150,7 +148,7 @@ export default class GyazoObsidianUploader extends Plugin {
 								resultText,
 							);
 
-							new Notice("[Gyazo-Uploader] Generate image link");
+							new Notice("Gyazo uploader: image link generated");
 						} catch (error) {
 							console.error("Error:", error);
 							replacePlaceholder(
@@ -159,7 +157,7 @@ export default class GyazoObsidianUploader extends Plugin {
 								`[!INFO] Failed to upload ${files[0].name}`,
 							);
 							new Notice(
-								"[Gyazo-Uploader] Error: failed to upload an image to Gyazo",
+								`Gyazo uploader: failed to upload ${files[0].name}`,
 							);
 						}
 					}
