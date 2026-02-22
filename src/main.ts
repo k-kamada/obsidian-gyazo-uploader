@@ -118,7 +118,6 @@ export default class GyazoObsidianUploader extends Plugin {
 						try {
 							const uploadResponse: UploadResponse =
 								await requestUrl(requestParam);
-							console.warn(uploadResponse);
 							const imageId: string =
 								uploadResponse.json.image_id;
 
@@ -154,7 +153,10 @@ export default class GyazoObsidianUploader extends Plugin {
 
 							new Notice("Gyazo uploader: image link generated");
 						} catch (error) {
-							console.error("Error:", error);
+							console.error(
+								`Failed to upload ${files[0].name}`,
+								error,
+							);
 							replacePlaceholder(
 								editor,
 								placeholderText,
