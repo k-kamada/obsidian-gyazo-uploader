@@ -1,7 +1,49 @@
 import { Editor, getAllTags, Notice, Plugin, requestUrl } from "obsidian";
 import { DEFAULT_SETTINGS, MySettings, SampleSettingTab } from "./settings";
 
-// Remember to rename these classes and interfaces!
+interface UploadResponse {
+	status: number; // HTTP Status Code
+	json: {
+		type: string;
+		image_id: string;
+		url: string;
+		permalink_url?: string;
+		thumb_url?: string;
+		alt_text?: string;
+		created_at: string;
+	};
+}
+
+interface GetImageResponse {
+	status: number; // HTTP Status Code
+	json: {
+		access_policy: string;
+		type: string;
+		image_id: string;
+		url: string;
+		permalink_url?: string;
+		thumb_url?: string;
+		created_at: string;
+		metadata: {
+			app?: string;
+			desc?: string;
+			links?: string[];
+			original_title?: string;
+			original_url?: string;
+			title?: string;
+			url?: string;
+			user?: {
+				icon_url: string;
+				name: string;
+			};
+			ocr?: {
+				locale: string;
+				description: string;
+			};
+		};
+	};
+	text: string;
+}
 
 export default class GyazoObsidianUploader extends Plugin {
 	settings: MySettings;
@@ -67,8 +109,9 @@ export default class GyazoObsidianUploader extends Plugin {
 							body: body,
 						};
 						try {
-							const uploadResponse =
+							const uploadResponse: UploadResponse =
 								await requestUrl(requestParam);
+							console.warn(uploadResponse);
 							const imageId: string =
 								uploadResponse.json.image_id;
 
@@ -80,17 +123,18 @@ export default class GyazoObsidianUploader extends Plugin {
 								setTimeout(resolve, 10000),
 							);
 
-							const infoResponse = await requestUrl({
-								url: `https://api.gyazo.com/api/images/${imageId}`,
-								method: "GET",
-								headers: {
-									Authorization: `Bearer ${this.settings.accessToken}`,
-								},
-							});
+							const infoResponse: GetImageResponse =
+								await requestUrl({
+									url: `https://api.gyazo.com/api/images/${imageId}`,
+									method: "GET",
+									headers: {
+										Authorization: `Bearer ${this.settings.accessToken}`,
+									},
+								});
 
 							const ocrText = (
-								infoResponse.json.metadata.ocr
-									.description as string
+								infoResponse.json.metadata.ocr?.description ||
+								""
 							).replace(/\n/g, "");
 
 							const url = infoResponse.json.url;
