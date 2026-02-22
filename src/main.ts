@@ -153,7 +153,7 @@ export default class GyazoObsidianUploader extends Plugin {
 							replacePlaceholder(
 								editor,
 								placeholderText,
-								"[INFO!] Failed to upload",
+								`[!INFO] Failed to upload ${files[0].name}`,
 							);
 							new Notice(
 								"[Gyazo-Uploader] Error: failed to upload an image to Gyazo",
